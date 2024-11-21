@@ -1,0 +1,35 @@
+
+ GET / 200 in 42ms
+ ✓ Compiled /api/posts in 363ms (877 modules)
+Error fetching posts: Error: Arguments must be aggregate pipeline operators
+    at Aggregate.append (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/mongoose/lib/aggregate.js:149:11)
+    at new Aggregate (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/mongoose/lib/aggregate.js:59:17)
+    at Function.aggregate (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/mongoose/lib/model.js:4043:21)
+    at GET (webpack-internal:///(rsc)/./app/api/posts/route.ts:69:80)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async /home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:55831
+    at async eO.execute (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46527)
+    at async eO.handle (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57165)
+    at async doRender (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/base-server.js:1353:42)
+    at async cacheEntry.responseCache.get.routeKind (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/base-server.js:1575:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/base-server.js:1483:28)
+    at async DevServer.renderPageComponent (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/base-server.js:1911:24)
+    at async DevServer.renderToResponseImpl (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/base-server.js:1949:32)
+    at async DevServer.pipeImpl (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/base-server.js:921:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/base-server.js:817:17)
+    at async /home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/lib/router-server.js:173:21)
+    at async handleRequest (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/lib/router-server.js:350:24)
+    at async requestHandlerImpl (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/lib/router-server.js:374:13)
+    at async Server.requestListener (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/server/lib/start-server.js:141:13)
+ GET /api/posts?sort=newest 500 in 2171ms
+Error fetching posts: Error: Arguments must be aggregate pipeline operators
+    at Aggregate.append (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/mongoose/lib/aggregate.js:149:11)
+    at new Aggregate (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/mongoose/lib/aggregate.js:59:17)
+    at Function.aggregate (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/mongoose/lib/model.js:4043:21)
+    at GET (webpack-internal:///(rsc)/./app/api/posts/route.ts:69:80)
+    at async /home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:55831
+    at async eO.execute (/home/runner/Nextjs-MongoDB-replit-board-like-test-3/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46527)

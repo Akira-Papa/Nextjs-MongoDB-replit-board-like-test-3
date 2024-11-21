@@ -1,0 +1,48 @@
+掲示板アプリ 個人識別システム実装指示書
+1. ユーザー識別の仕組み
+1.1 初回アクセス時の処理
+
+javascript
+Copy
+// ユーザーの識別情報const getUserIdentity = () => {  // ローカルストレージからユーザーIDを取得  let userId = localStorage.getItem('userId');  let username = localStorage.getItem('username');
+  // 初回アクセス時（IDがない場合）  if (!userId || !username) {    // ランダムなIDを生成    userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;        // ユーザー名の入力を求める    username = prompt('表示名を入力してください：');    if (!username) {      username = `ユーザー${userId.substr(-4)}`; // デフォルト名    }
+    // ローカルストレージに保存    localStorage.setItem('userId', userId);    localStorage.setItem('username', username);  }
+  return { userId, username };};
+2. 投稿システムの構造
+2.1 投稿データ構造
+
+javascript
+Copy
+{  postId: "unique_id",      // 投稿ID  userId: "user_id",        // 投稿者のID（ローカルストレージから）  username: "string",       // 投稿者の表示名  title: "string",          // タイトル  content: "string",        // 本文  createdAt: "timestamp",   // 作成日時  updatedAt: "timestamp",   // 更新日時  likes: {                  // いいね情報（オブジェクト形式）    "user_id1": timestamp,  // いいねしたユーザーIDと日時    "user_id2": timestamp,    // ...  }}
+2.2 投稿の権限管理
+
+javascript
+Copy
+// 投稿の編集・削除権限チェックconst canEditPost = (post) => {  const currentUserId = localStorage.getItem('userId');  return post.userId === currentUserId;};
+// いいねの制御const canLikePost = (post) => {  const currentUserId = localStorage.getItem('userId');  return !post.likes.hasOwnProperty(currentUserId);};
+3. 実装例
+
+jsx
+Copy
+const ForumApp = () => {  const [currentUser, setCurrentUser] = useState(null);  const [posts, setPosts] = useState([]);
+  // コンポーネントマウント時にユーザー識別  useEffect(() => {    const userIdentity = getUserIdentity();    setCurrentUser(userIdentity);  }, []);
+  // 投稿作成  const createPost = (title, content) => {    const newPost = {      postId: `post_${Date.now()}`,      userId: currentUser.userId,      username: currentUser.username,      title,      content,      createdAt: new Date().toISOString(),      updatedAt: new Date().toISOString(),      likes: {}    };    setPosts([newPost, ...posts]);  };
+  // いいね処理  const toggleLike = (postId) => {    setPosts(posts.map(post => {      if (post.postId === postId) {        const newLikes = { ...post.likes };        if (newLikes[currentUser.userId]) {          // いいねを解除          delete newLikes[currentUser.userId];        } else {          // いいねを追加          newLikes[currentUser.userId] = new Date().toISOString();        }        return { ...post, likes: newLikes };      }      return post;    }));  };
+  return (    <div>      {/* 投稿フォーム */}      <PostForm onSubmit={createPost} />
+      {/* 投稿一覧 */}      {posts.map(post => (        <PostCard          key={post.postId}          post={post}          currentUser={currentUser}          canEdit={canEditPost(post)}          canLike={canLikePost(post)}          onLike={toggleLike}          onEdit={handleEdit}          onDelete={handleDelete}        />      ))}    </div>  );};
+4. 注意点
+	1. データの永続性 
+		○ ローカルストレージのデータは、ブラウザの履歴削除で消える可能性があります
+		○ 実際のサービスでは、バックエンドでのデータ保存が必要です
+	2. セキュリティ 
+		○ この方法は簡易的な識別であり、なりすまし防止はできません
+		○ 重要な情報や本人確認が必要な機能には、proper な認証システムが必要です
+	3. マルチデバイス対応 
+		○ 異なるデバイスやブラウザでは別ユーザーとして扱われます
+		○ デバイス間での連携は、この方法では対応できません
+この実装により、以下が実現できます：
+	• 初回アクセス時にユーザー名を設定
+	• 投稿者の識別と表示
+	• 自分の投稿のみ編集・削除可能
+	• 1ユーザーにつき1投稿1回のいいね
+より堅牢なシステムが必要な場合は、proper な認証システムの実装を検討してください。
